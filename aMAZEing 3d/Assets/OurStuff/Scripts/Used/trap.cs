@@ -28,8 +28,9 @@ public class trap : MonoBehaviour
     //This is the array that holds all of the gameobjects that are special
     public GameObject[] arr;
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
+        this.GetComponent<fixtrap>().enabled = true;
         //Debug.Log(npath.Length);
         time = 0;
         aswitch = true;
@@ -102,14 +103,49 @@ public class trap : MonoBehaviour
                     {
                         danger = true;
                         collided_object = arr[i];
-                        Debug.Log("This triggers the danger");
                         break;
+
                     }
                 }
                 if (danger)
                 {
                     //Debug.Log("danger should have worked");
                     this.GetComponent<resetwalls>().enabled = true;
+                    this.GetComponent<resetwalls>().Start();
+                    /*
+                    GameObject startsec = collided_object;
+                    GameObject endsec = main.GetComponent<makepath>().end_section;
+                    Stack<GameObject>[] astack = main.GetComponent<makepath>().pathAlgorithm(startsec, endsec);
+
+                    Stack<GameObject> gp = astack[0];
+                    Stack<GameObject> ss = astack[1];
+
+                    int ssc = ss.Count;
+                    GameObject[] sa = new GameObject[ssc];
+                    string[] nsa = new string[ssc];
+                    GameObject ssec;
+                    for (int a = 0; a < ssc; a++)
+                    {
+                        ssec = ss.Pop();
+                        sa[a] = ssec;
+                        nsa[a] = ssec.name;
+                    }
+
+                    int c = gp.Count;
+                    GameObject[] ret_path = new GameObject[c];
+                    string[] name_path = new string[c];
+                    for (int a = 0; a < c; a++)
+                    {
+                        GameObject s = gp.Pop();
+                        ret_path[a] = s;
+                        name_path[a] = s.name;
+                    }
+
+                    main.GetComponent<makepath>().sa = sa;
+                    main.GetComponent<makepath>().nsa = nsa;
+                    main.GetComponent<makepath>().ret_path = ret_path;
+                    main.GetComponent<makepath>().name_path = name_path;
+                    */
                     aswitch = false;
                 }
             }

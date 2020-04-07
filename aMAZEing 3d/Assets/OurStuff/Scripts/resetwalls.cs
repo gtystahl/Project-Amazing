@@ -13,14 +13,16 @@ public class resetwalls : MonoBehaviour
     //can change the height later if needed. 5 is the cales of the wall
     public Vector3 v;
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
         v = new Vector3(0, 5, 0);
         sections = mazemake.GetComponent<mazecreater>().full_section_list;
         for (int i = 0; i < sections.Length; i++)
         {
             GameObject s = sections[i];
+            s.GetComponent<Renderer>().material = s.GetComponent<attributes>().good;
             s.GetComponent<attributes>().paths = 4;
+            s.GetComponent<attributes>().visited = false;
             if (s.GetComponent<attributes>().topwall.GetComponent<wall_attributes>().outside != true)
             {
                 if (s.GetComponent<attributes>().topwall.transform.position.y < 0)
@@ -75,10 +77,11 @@ public class resetwalls : MonoBehaviour
 
         }
 
-        /*
+        
         //Put run mazecreater here
+        
         makepath m = pf.GetComponent<makepath>();
-        Stack<GameObject>[] astack = m.pathAlgorithm(pr.GetComponent<trap>().collided_object, pf.GetComponent<makepath>().end_section);
+        Stack<GameObject>[] astack = m.pathAlgorithm(pr.GetComponent<trap>().collided_object, pf.GetComponent<makepath>().end_section, sections);
         //Stack<GameObject>[] astack = new Stack<GameObject>[2];
 
         m.good_path = astack[0];
@@ -104,8 +107,10 @@ public class resetwalls : MonoBehaviour
             m.ret_path[i] = s;
             m.name_path[i] = s.name;
         }
-        //this.GetComponent<resetwalls>().enabled = false;
-        */
-        
+        this.GetComponent<trap>().enabled = false;
+        this.GetComponent<trap>().Start();
+        this.GetComponent<resetwalls>().enabled = false;
+
+
     }
 }

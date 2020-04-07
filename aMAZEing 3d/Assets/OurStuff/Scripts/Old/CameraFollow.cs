@@ -38,8 +38,8 @@ public class CameraFollow : MonoBehaviour
         if (i == 0)
         {
             this.transform.position = start_section.transform.position;
-            this.transform.position += new Vector3(0, .5f, 0);
-            //i++;
+            this.transform.position += new Vector3(0, 1f, 0);
+            i++;
         }
         float x = 0;
         float y = 0;
@@ -68,21 +68,25 @@ public class CameraFollow : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
+            Debug.Log(KeyCode.DownArrow);
             this.transform.position += new Vector3(x, y, z);
         }
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
+            Debug.Log(KeyCode.UpArrow);
             this.transform.position += new Vector3(-x, y, -z);
         }
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
+            Debug.Log(KeyCode.RightArrow);
             this.transform.Rotate(0, 90f, 0);
         }
 
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
+            Debug.Log(KeyCode.LeftArrow);
             this.transform.Rotate(0, -90f, 0);
         }
     }
