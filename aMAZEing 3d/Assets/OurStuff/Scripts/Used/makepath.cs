@@ -48,6 +48,12 @@ public class makepath : MonoBehaviour
     public GameObject[] sa;
     public string[] nsa;
 
+    //This is the full section list
+    public GameObject[] arr;
+
+    //This is the return value of the path algorithm
+    public Stack<GameObject>[] astack;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -61,7 +67,7 @@ public class makepath : MonoBehaviour
         int diment = mx * mz;
 
         //This is a list of all sections
-        GameObject[] arr = com.full_section_list;
+        arr = com.full_section_list;
 
         //This sets the beginning and end
         int end_num = Random.Range((diment - mx), (diment));
@@ -73,8 +79,9 @@ public class makepath : MonoBehaviour
 
         //about to do some funky things under here:
 
-        Stack<GameObject>[] astack = pathAlgorithm(start_section, end_section);
+        //Stack<GameObject>[] astack = pathAlgorithm(start_section, end_section, arr);
 
+        /*
         good_path = astack[0];
         ss = astack[1];
 
@@ -98,7 +105,7 @@ public class makepath : MonoBehaviour
             ret_path[i] = s;
             name_path[i] = s.name;
         }
-
+        */
         /*
         int j = 1;
         while (running)
@@ -289,8 +296,38 @@ public class makepath : MonoBehaviour
         } */
     }
 
-    public Stack<GameObject>[] pathAlgorithm(GameObject s, GameObject es)
+    public void setFun()
     {
+        good_path = this.astack[0];
+        ss = this.astack[1];
+
+        int ssc = ss.Count;
+        sa = new GameObject[ssc];
+        nsa = new string[ssc];
+        GameObject ssec;
+        for (int i = 0; i < ssc; i++)
+        {
+            ssec = ss.Pop();
+            sa[i] = ssec;
+            nsa[i] = ssec.name;
+        }
+
+        int c = good_path.Count;
+        ret_path = new GameObject[c];
+        name_path = new string[c];
+        for (int i = 0; i < c; i++)
+        {
+            GameObject s = good_path.Pop();
+            ret_path[i] = s;
+            name_path[i] = s.name;
+        }
+    }
+    public Stack<GameObject>[] pathAlgorithm(GameObject s, GameObject es, GameObject [] full)
+    {
+        ArrayList secleft = new ArrayList(full.Length);
+        for (int z = 0; z < full.Length; z++) {
+            secleft.Add(full[z]);
+        } 
         GameObject square = s; //section
         Stack<GameObject> correct_path = new Stack<GameObject>(); //good_path
         bool gpd = false;
@@ -339,7 +376,8 @@ public class makepath : MonoBehaviour
                 //sudo stuff goes here
                 Stack<GameObject> sectlst;
                 GameObject w;
-                if (path.Count != 0)
+                //path.Count != 0
+                if (secleft.Count != 0 || path.Count != 0)
                 {
                     if (first_change)
                     {
@@ -403,10 +441,14 @@ public class makepath : MonoBehaviour
             {
                 first_change = true;
                 iter = Random.Range(0, possibles);
-
+                
 
                 section_walls = new Stack<GameObject>();
                 GameObject old_section = square;
+                if (secleft.Contains(old_section))
+                {
+                    secleft.Remove(old_section);
+                }
 
                 for (int a = 0; a < 4; a++)
                 {
