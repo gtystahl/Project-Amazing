@@ -501,6 +501,11 @@ PrefabInstance:
       propertyPath: mazez
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 171105265451319639, guid: bf912719b2b009c4cb34e541a92cdc16,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf912719b2b009c4cb34e541a92cdc16, type: 3}
 --- !u!1001 &583091050535438060
@@ -605,6 +610,11 @@ PrefabInstance:
       propertyPath: pr
       value: 
       objectReference: {fileID: 1368534093}
+    - target: {fileID: 5364003828421321443, guid: 32e9f550ea389f14fb42a42d89bea9e5,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32e9f550ea389f14fb42a42d89bea9e5, type: 3}
 --- !u!1001 &818150460652943380
@@ -701,7 +711,7 @@ PrefabInstance:
     - target: {fileID: 2661458376317022352, guid: 3310277a06f0ae644bf31da126cef267,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -18.77
+      value: -52.6
       objectReference: {fileID: 0}
     - target: {fileID: 2661458376317022352, guid: 3310277a06f0ae644bf31da126cef267,
         type: 3}
@@ -752,6 +762,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2661458376317022366, guid: 3310277a06f0ae644bf31da126cef267,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3310277a06f0ae644bf31da126cef267, type: 3}

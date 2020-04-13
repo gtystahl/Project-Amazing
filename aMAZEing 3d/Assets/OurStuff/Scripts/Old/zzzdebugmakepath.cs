@@ -27,7 +27,7 @@ public class zzzdebugmakepath : MonoBehaviour
     public bool allvisitedval;
 
     public bool running;
-    private void Start()
+    public void Start()
     {
         full = this.GetComponent<makepath>().arr;
         s = this.GetComponent<makepath>().start_section;
@@ -292,6 +292,7 @@ public class zzzdebugmakepath : MonoBehaviour
             fuckyouunity[1] = ss;
             this.GetComponent<makepath>().astack = fuckyouunity;
             this.GetComponent<makepath>().setFun();
+            pr.GetComponent<trap>().Start();
             pr.GetComponent<trap>().enabled = true; 
             this.GetComponent<zzzdebugmakepath>().enabled = false;
         }

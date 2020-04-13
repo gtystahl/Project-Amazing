@@ -77,9 +77,15 @@ public class resetwalls : MonoBehaviour
 
         }
 
-        
+
         //Put run mazecreater here
-        
+
+        Debug.Log("stop");
+        zzzdebugmakepath zmp = pf.GetComponent<zzzdebugmakepath>();
+        zmp.Start();
+        zmp.enabled = true;
+        zmp.square = this.GetComponent<trap>().collided_object;
+        /*
         makepath m = pf.GetComponent<makepath>();
         Stack<GameObject>[] astack = m.pathAlgorithm(pr.GetComponent<trap>().collided_object, pf.GetComponent<makepath>().end_section, sections);
         //Stack<GameObject>[] astack = new Stack<GameObject>[2];
@@ -107,6 +113,7 @@ public class resetwalls : MonoBehaviour
             m.ret_path[i] = s;
             m.name_path[i] = s.name;
         }
+        */
         this.GetComponent<trap>().enabled = false;
         this.GetComponent<trap>().Start();
         this.GetComponent<resetwalls>().enabled = false;
