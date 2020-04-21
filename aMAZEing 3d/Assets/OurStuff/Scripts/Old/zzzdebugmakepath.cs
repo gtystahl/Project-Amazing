@@ -26,6 +26,8 @@ public class zzzdebugmakepath : MonoBehaviour
     public int PathSize;
     public bool allvisitedval;
 
+    public GameObject ac;
+
     public bool running;
     public void Start()
     {
@@ -295,6 +297,7 @@ public class zzzdebugmakepath : MonoBehaviour
             pr.GetComponent<trap>().Start();
             pr.GetComponent<trap>().enabled = true; 
             this.GetComponent<zzzdebugmakepath>().enabled = false;
+            //ac.GetComponent<AI_Creater>().enabled = true;
         }
     }
     public bool allvisited(GameObject[] f)

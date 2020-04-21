@@ -30,7 +30,7 @@ public class trap : MonoBehaviour
     // Start is called before the first frame update
     public void Start()
     {
-        this.GetComponent<fixtrap>().enabled = true;
+        //this.GetComponent<fixtrap>().enabled = true;
         //Debug.Log(npath.Length);
         time = 0;
         aswitch = true;
@@ -69,6 +69,7 @@ public class trap : MonoBehaviour
                         {
                             GameObject s = path[i];
                             attributes a = s.GetComponent<attributes>();
+                            a.onGood = false;
                             if (a.topwall.transform.position.y != 2.5f)
                             {
                                 a.topwall.transform.position += new Vector3(0, 5, 0);
@@ -112,6 +113,7 @@ public class trap : MonoBehaviour
                     //Debug.Log("danger should have worked");
                     this.GetComponent<resetwalls>().enabled = true;
                     this.GetComponent<resetwalls>().Start();
+                    narr = new string[0];
                     /*
                     GameObject startsec = collided_object;
                     GameObject endsec = main.GetComponent<makepath>().end_section;
@@ -146,6 +148,7 @@ public class trap : MonoBehaviour
                     main.GetComponent<makepath>().ret_path = ret_path;
                     main.GetComponent<makepath>().name_path = name_path;
                     */
+                    danger = false;
                     aswitch = false;
                 }
             }
