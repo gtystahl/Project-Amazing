@@ -11,6 +11,7 @@ public class wall_attributes : MonoBehaviour
 
 
     // Start is called before the first frame update
+    /*
     void Start()
     {
         
@@ -21,4 +22,5 @@ public class wall_attributes : MonoBehaviour
     {
         
     }
+    */
 }
