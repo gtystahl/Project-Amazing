@@ -75,6 +75,7 @@ public class AI_Controller : MonoBehaviour
             Destroy(this.gameObject);
             ac.GetComponent<AI_Creater>().spawnmoreai = true;
         } 
+        //might be able to change this to stay on object
         if (collision.collider.transform.position.y > 0) {
                 //Debug.Log("It hits a wall in the up position");
                 Vector3 seccenter = currentsec.transform.position;
