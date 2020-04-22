@@ -107,7 +107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ainum: 0
   gp: []
-  gnp: []
+  fp: []
   pf: {fileID: 0}
   aicr: {fileID: 0}
   first: 0
@@ -120,6 +120,7 @@ MonoBehaviour:
   nextsec: {fileID: 0}
   start: 0
   addition: {x: 0, y: 0, z: 0}
+  newpath: []
 --- !u!54 &8035837095735645597
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -134,5 +135,5 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 2

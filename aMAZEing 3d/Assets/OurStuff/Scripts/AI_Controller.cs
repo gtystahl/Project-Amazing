@@ -9,6 +9,9 @@ public class AI_Controller : MonoBehaviour
     public GameObject[] gp;
     public GameObject[] fp;
 
+    //This is the creater of the AI
+    public GameObject ac;
+
     public GameObject pf;
     public GameObject aicr;
     public bool first;
@@ -28,8 +31,12 @@ public class AI_Controller : MonoBehaviour
 
     //This is for walking along the good path
     public List<GameObject> newpath;
+
+    //This is to have it get back on track if somehow the player escapes
+    public bool sawPlayer;
+
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
         //makepath mp = pf.GetComponent<makepath>();
         //gp = mp.ret_path;
@@ -44,10 +51,12 @@ public class AI_Controller : MonoBehaviour
     // Update is called once per frame
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.gameObject.name);
+        //Debug.Log(collision.gameObject.name);
         if (collision.gameObject.name == "Player")
         {
-            Debug.Log("Should destroy");
+            //Debug.Log("Should destroy");
+            ac.GetComponent<AI_Creater>().ailist.Remove(this.gameObject);
+            ac.GetComponent<AI_Creater>().spawnmoreplayer = true;
             Destroy(this.gameObject);
         }
         if (currentsec.name != collision.collider.name)
@@ -59,7 +68,20 @@ public class AI_Controller : MonoBehaviour
                     currentsec = fp[i];
                 }
             }
+        }
+        if (collision.collider.name.StartsWith("AI"))
+        {
+            ac.GetComponent<AI_Creater>().ailist.Remove(this.gameObject);
+            Destroy(this.gameObject);
+            ac.GetComponent<AI_Creater>().spawnmoreai = true;
         } 
+        if (collision.collider.transform.position.y > 0) {
+                //Debug.Log("It hits a wall in the up position");
+                Vector3 seccenter = currentsec.transform.position;
+                pathtofollow = new List<GameObject>();
+            startsec = currentsec;
+            setLoc();
+        }
         if (first)
         {
             pathtofollow = findPath();
@@ -108,23 +130,29 @@ public class AI_Controller : MonoBehaviour
                     pathtofollow = newpath;
                 }
                 //change all of the -1 to be the last item. A pain but necessay
-                if (currentsec != pathtofollow[pathtofollow.Count - 1])
+                if (pathtofollow.Count != 0)
                 {
-                    nextsec = pathtofollow[pathtofollow.Count - 1];
-                    targetloc = nextsec.transform.position;
-                    //need to add in the offset for raising the ai up. (done)
-                    //targetloc.y = 0;
-                    addition.x = targetloc.x - currentsec.transform.position.x;
-                    addition.z = targetloc.z - currentsec.transform.position.z;
-                    //addition.y = .1f;
-                    GameObject rm = pathtofollow[pathtofollow.Count - 1];
-                    pathtofollow.Remove(rm);
-                    start = false;
-                }
-                else
+                    if (currentsec != pathtofollow[pathtofollow.Count - 1])
+                    {
+                        nextsec = pathtofollow[pathtofollow.Count - 1];
+                        targetloc = nextsec.transform.position;
+                        //need to add in the offset for raising the ai up. (done)
+                        //targetloc.y = 0;
+                        addition.x = targetloc.x - currentsec.transform.position.x;
+                        addition.z = targetloc.z - currentsec.transform.position.z;
+                        //addition.y = .1f;
+                        GameObject rm = pathtofollow[pathtofollow.Count - 1];
+                        pathtofollow.Remove(rm);
+                        start = false;
+                    }
+                    else
+                    {
+                        GameObject rm = pathtofollow[pathtofollow.Count - 1];
+                        pathtofollow.Remove(rm);
+                    }
+                } else
                 {
-                    GameObject rm = pathtofollow[pathtofollow.Count - 1];
-                    pathtofollow.Remove(rm);
+                    pathtofollow = findPath();
                 }
             } else
             {
@@ -134,7 +162,13 @@ public class AI_Controller : MonoBehaviour
                     {
                         if (currentsec != nextsec || close(this.gameObject, nextsec) != true)
                         {
-                            this.transform.position += (addition / 5) * Time.deltaTime;
+                            if (sawPlayer)
+                            {
+                                restartTarget(targetloc);
+                                sawPlayer = false;
+                            }
+                            //old was /5 and * deltatime
+                            this.transform.position += (addition) * .025f; //* (Time.deltaTime * 10);
                         }
                         else
                         {
@@ -150,6 +184,7 @@ public class AI_Controller : MonoBehaviour
                     } else
                     {
                         //add in the follow player code
+                        sawPlayer = true;
                         Vector3 pmovement = new Vector3(0, 0, 0);
                         pmovement.x = pr.transform.position.x - this.transform.position.x;
                         pmovement.z = pr.transform.position.z - this.transform.position.z;
@@ -173,6 +208,11 @@ public class AI_Controller : MonoBehaviour
             if (Mathf.Abs(t.transform.position.z - c.transform.position.z) < .1f)
             {
                 return true;
+                /**/
+                Vector3 correction = currentsec.transform.position;
+                correction.y = 3;
+                this.transform.position = correction;
+                /**/
             }
         }
         return false;
@@ -219,6 +259,10 @@ public class AI_Controller : MonoBehaviour
         GameObject nsec = null;
         int origcount = path.Count;
         if (secat.onGood)
+        {
+            path.Add(s);
+            return path;
+        } if (s.name == pr.GetComponent<playersection>().col)
         {
             path.Add(s);
             return path;
@@ -359,5 +403,10 @@ public class AI_Controller : MonoBehaviour
     public void setLoc()
     {
         this.transform.position = startsec.transform.position + new Vector3(0, 2, 0);
+    }
+
+    public void restartTarget(Vector3 tl)
+    {
+        this.addition = (tl - this.transform.position) * 10;
     }
 }

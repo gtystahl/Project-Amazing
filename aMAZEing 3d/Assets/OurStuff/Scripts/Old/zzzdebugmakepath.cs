@@ -106,10 +106,12 @@ public class zzzdebugmakepath : MonoBehaviour
                     if (first_change)
                     {
                         if (square.name != es.name)
+                        {
                             //square.GetComponent<Renderer>().enabled = false;
                             //This is where we set the special spaces
                             square.GetComponent<Renderer>().material = square.GetComponent<attributes>().bad;
-                        ss.Push(square);
+                            ss.Push(square);
+                        }
                         //Debug.Log(square.name);
                         first_change = false;
                     }
