@@ -11,7 +11,8 @@ public class AI_Creater : MonoBehaviour
     public List<GameObject> ailist;
 
     //This is the varaible that the AI will change when it dies. It determines spawning new AI
-    public bool spawnmore;
+    public bool spawnmoreplayer;
+    public bool spawnmoreai;
 
     //This is the variables that will choose the cs and will be determined at random
     public int sectionNumber;
@@ -35,39 +36,58 @@ public class AI_Creater : MonoBehaviour
 
     //This is the player register;
     public GameObject pr;
+
+    //This is the varaible that holds every AI ever created
+    public int aicount;
     // Start is called before the first frame update
     void Start()
     {
-        spawnmore = false;
+        aicount = ailist.Capacity;
+        spawnmoreplayer = false;
+        spawnmoreai = false;
         fullarr = pf.GetComponent<makepath>().arr;
         updateGood();
-        createAI(1);
+        createAI(0);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (spawnmore)
+        if (spawnmoreplayer)
         {
             createAI(2);
+            spawnmoreplayer = false;
+        }
+        if (spawnmoreai)
+        {
+            createAI(1);
+            spawnmoreai = false;
         }
     }
 
     public void createAI(int amount)
     {
+        bool veryfirst = false;
+        if (amount == 0)
+        {
+            veryfirst = true;
+            amount++;
+        }
         for (int i = 0; i < amount; i++)
         {
-            if (amount == 3)
+            if (veryfirst)
             {
-                sectionNumber = Random.Range(0, goodarr.Length);
-                cs = goodarr[sectionNumber];
+                makepath mp = pf.GetComponent<makepath>();
+                cs = mp.end_section;
             } else
             {
                 sectionNumber = Random.Range(0, fullarr.Length);
+                Debug.Log(sectionNumber);
                 cs = fullarr[sectionNumber];
             }
             spawnedai = Instantiate(ai);
-            spawnedai.name = ailist.Count.ToString();
+            aicount++;
+            spawnedai.name = "AI: " + (aicount).ToString();
             ailist.Add(spawnedai);
             updateAI(spawnedai);
         }
@@ -87,8 +107,16 @@ public class AI_Creater : MonoBehaviour
         makepath mp = pf.GetComponent<makepath>();
         ac.fp = mp.arr;
         ac.gp = mp.ret_path;
+        
+        if (ac.currentsec != null)
+        {
+            cs = ac.currentsec;
+        }
+        
         ac.startsec = cs;
         ac.currentsec = cs;
         ac.pr = pr;
+        ac.Start();
+        ac.ac = this.gameObject;
     }
 }

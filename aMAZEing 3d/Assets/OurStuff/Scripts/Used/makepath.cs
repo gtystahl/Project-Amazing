@@ -326,6 +326,7 @@ public class makepath : MonoBehaviour
         }
 
         ac.GetComponent<AI_Creater>().enabled = true;
+        ac.GetComponent<AI_Creater>().updateGood();
     }
     public Stack<GameObject>[] pathAlgorithm(GameObject s, GameObject es, GameObject [] full)
     {
