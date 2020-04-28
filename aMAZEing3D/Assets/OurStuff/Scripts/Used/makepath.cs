@@ -54,6 +54,8 @@ public class makepath : MonoBehaviour
     //This is the return value of the path algorithm
     public Stack<GameObject>[] astack;
 
+    //This is the Ai creater object
+    public GameObject ac;
     // Start is called before the first frame update
     void Start()
     {
@@ -318,9 +320,13 @@ public class makepath : MonoBehaviour
         for (int i = 0; i < c; i++)
         {
             GameObject s = good_path.Pop();
+            s.GetComponent<attributes>().onGood = true;
             ret_path[i] = s;
             name_path[i] = s.name;
         }
+
+        ac.GetComponent<AI_Creater>().enabled = true;
+        ac.GetComponent<AI_Creater>().updateGood();
     }
     public Stack<GameObject>[] pathAlgorithm(GameObject s, GameObject es, GameObject [] full)
     {

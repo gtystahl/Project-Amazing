@@ -25,9 +25,14 @@ public class attributes : MonoBehaviour
 
     // This is to see if we have been to this section
     public bool visited = false;
+
+    //This lets the AI know that it is a part of the good path
+    public bool onGood;
     // Start is called before the first frame update
     void Start()
     {
+        visited = false;
+        onGood = false;
         isset = true;
         //this.GetComponent<Renderer>().material = good;
     }

@@ -26,6 +26,8 @@ public class zzzdebugmakepath : MonoBehaviour
     public int PathSize;
     public bool allvisitedval;
 
+    public GameObject ac;
+
     public bool running;
     public void Start()
     {
@@ -104,10 +106,12 @@ public class zzzdebugmakepath : MonoBehaviour
                     if (first_change)
                     {
                         if (square.name != es.name)
+                        {
                             //square.GetComponent<Renderer>().enabled = false;
                             //This is where we set the special spaces
                             square.GetComponent<Renderer>().material = square.GetComponent<attributes>().bad;
-                        ss.Push(square);
+                            ss.Push(square);
+                        }
                         //Debug.Log(square.name);
                         first_change = false;
                     }
@@ -295,6 +299,7 @@ public class zzzdebugmakepath : MonoBehaviour
             pr.GetComponent<trap>().Start();
             pr.GetComponent<trap>().enabled = true; 
             this.GetComponent<zzzdebugmakepath>().enabled = false;
+            //ac.GetComponent<AI_Creater>().enabled = true;
         }
     }
     public bool allvisited(GameObject[] f)
