@@ -39,6 +39,8 @@ public class AI_Creater : MonoBehaviour
 
     //This is the varaible that holds every AI ever created
     public int aicount;
+
+    public int Health;
     // Start is called before the first frame update
     void Start()
     {
@@ -48,6 +50,7 @@ public class AI_Creater : MonoBehaviour
         fullarr = pf.GetComponent<makepath>().arr;
         updateGood();
         createAI(0);
+        Health = 3;
     }
 
     // Update is called once per frame
