@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class playersection : MonoBehaviour
 {
@@ -18,6 +19,10 @@ public class playersection : MonoBehaviour
         if (collision.gameObject.tag == "section")
         {
             col = collision.collider.name;
+            if(col == "end")
+            {
+                SceneManager.LoadScene("Winning_Screen");
+            }
         }
     }
 }
