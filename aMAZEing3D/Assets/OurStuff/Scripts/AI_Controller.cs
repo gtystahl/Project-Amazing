@@ -51,7 +51,7 @@ public class AI_Controller : MonoBehaviour
     // Update is called once per frame
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.gameObject.name);
+        //Debug.Log(collision.gameObject.name);
         if (collision.gameObject.name == "Player")
         {
             //Debug.Log("Should destroy");
