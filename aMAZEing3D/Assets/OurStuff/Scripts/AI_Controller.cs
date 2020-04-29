@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AI_Controller : MonoBehaviour
 {
@@ -35,6 +36,8 @@ public class AI_Controller : MonoBehaviour
     //This is to have it get back on track if somehow the player escapes
     public bool sawPlayer;
 
+    public int Health;
+
     // Start is called before the first frame update
     public void Start()
     {
@@ -52,13 +55,46 @@ public class AI_Controller : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         //Debug.Log(collision.gameObject.name);
+        if (collision.gameObject.name == "SwordV5")
+        {
+            Debug.Log(Input.GetKey(KeyCode.Space));
+            if(Input.GetKey(KeyCode.Space) == true)
+            {
+                Debug.Log("Should destroy");
+                ac.GetComponent<AI_Creater>().ailist.Remove(this.gameObject);
+                ac.GetComponent<AI_Creater>().spawnmoreplayer = true;
+                Destroy(this.gameObject);
+            }
+            else
+            {
+                ac.GetComponent<AI_Creater>().Health -= 1;
+                ac.GetComponent<AI_Creater>().ailist.Remove(this.gameObject);
+                ac.GetComponent<AI_Creater>().spawnmoreplayer = true;
+                Destroy(this.gameObject);
+                Debug.Log(ac.GetComponent<AI_Creater>().Health);
+
+                
+                if(ac.GetComponent<AI_Creater>().Health == 0)
+                {
+                SceneManager.LoadScene("Death_screen");
+                }
+            }
+
+        }
+
         if (collision.gameObject.name == "Player")
         {
-            //Debug.Log("Should destroy");
+            ac.GetComponent<AI_Creater>().Health -= 1;
             ac.GetComponent<AI_Creater>().ailist.Remove(this.gameObject);
             ac.GetComponent<AI_Creater>().spawnmoreplayer = true;
             Destroy(this.gameObject);
+            Debug.Log(ac.GetComponent<AI_Creater>().Health);
+            if(ac.GetComponent<AI_Creater>().Health == 0)
+            {
+                SceneManager.LoadScene("Death_screen");
+            }
         }
+
         if (currentsec.name != collision.collider.name)
         {
             for (int i = 0; i < fp.Length; i++)
