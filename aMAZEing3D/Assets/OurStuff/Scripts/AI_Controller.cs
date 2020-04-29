@@ -54,7 +54,6 @@ public class AI_Controller : MonoBehaviour
     // Update is called once per frame
     void OnCollisionEnter(Collision collision)
     {
-
         //Debug.Log(collision.gameObject.name);
         if (collision.gameObject.name == "SwordV5")
         {
@@ -82,6 +81,7 @@ public class AI_Controller : MonoBehaviour
             }
 
         }
+
         if (collision.gameObject.name == "Player")
         {
             ac.GetComponent<AI_Creater>().Health -= 1;
