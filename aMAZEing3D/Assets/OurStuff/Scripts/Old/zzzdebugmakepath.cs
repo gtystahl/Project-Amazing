@@ -298,6 +298,7 @@ public class zzzdebugmakepath : MonoBehaviour
             this.GetComponent<makepath>().setFun();
             pr.GetComponent<trap>().Start();
             pr.GetComponent<trap>().enabled = true; 
+            pr.GetComponent<playersection>().first = true;
             this.GetComponent<zzzdebugmakepath>().enabled = false;
             //ac.GetComponent<AI_Creater>().enabled = true;
         }

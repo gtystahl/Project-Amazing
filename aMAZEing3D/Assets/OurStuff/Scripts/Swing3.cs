@@ -7,6 +7,8 @@ public class Swing3 : MonoBehaviour
     public float speed;
     public Vector3 v;
     public Vector3 v2;
+
+    public GameObject player;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,10 +21,12 @@ public class Swing3 : MonoBehaviour
          if (Input.GetKeyDown(KeyCode.Space)){
             //Debug.Log(this.transform.localRotation.eulerAngles.x);
             //Vector3.up and speed
+            v2.y = player.transform.eulerAngles.y;
             this.transform.eulerAngles = v2;
          }
          else if (Input.GetKeyUp(KeyCode.Space)) {
             //Vector3.up and speed
+            v.y = player.transform.eulerAngles.y;
             this.transform.eulerAngles = v;
 
         }

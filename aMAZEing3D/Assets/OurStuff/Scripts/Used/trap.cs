@@ -27,6 +27,10 @@ public class trap : MonoBehaviour
 
     //This is the array that holds all of the gameobjects that are special
     public GameObject[] arr;
+
+    //This is a wild variable that Im adding to make things simpler
+    public bool trapon;
+    public bool findbad;
     // Start is called before the first frame update
     public void Start()
     {
@@ -39,119 +43,81 @@ public class trap : MonoBehaviour
         npath = main.GetComponent<makepath>().name_path;
         arr = main.GetComponent<makepath>().sa;
         narr = main.GetComponent<makepath>().nsa;
+        trapon = false;
+        findbad = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        time += Time.deltaTime;
-        if (time >= 1)
+
+        colid = this.GetComponent<playersection>().col;
+
+        if (trapon)
         {
-            if (aswitch)
+            closepath(path);
+            trapon = false;
+        }
+
+        if (colid == "end")
+        {
+            Debug.Log("This should switch");
+            SceneManager.LoadScene("Ending_Screen");
+        }
+
+        if (findbad)
+        {
+            danger = false;
+            for (int i = 0; i < narr.Length; i++)
             {
-                colid = this.GetComponent<playersection>().col;
-                if (virgin)
+                if (narr[i] == colid)
                 {
-                    notgood = true;
-                    for (int i = 0; i < npath.Length; i++)
-                    {
-                        if (npath[i] == colid)
-                        {
-                            notgood = false;
-                            break;
-                        }
-                    }
-                    if (notgood)
-                    {
-                        virgin = false;
-                        int c = path.Length;
-                        for (int i = 0; i < c; i++)
-                        {
-                            GameObject s = path[i];
-                            attributes a = s.GetComponent<attributes>();
-                            a.onGood = false;
-                            if (a.topwall.transform.position.y != 2.5f)
-                            {
-                                a.topwall.transform.position += new Vector3(0, 5, 0);
-                            }
+                    danger = true;
+                    collided_object = arr[i];
+                    break;
 
-                            if (a.bottomwall.transform.position.y != 2.5f)
-                            {
-                                a.bottomwall.transform.position += new Vector3(0, 5, 0);
-                            }
-
-                            if (a.leftwall.transform.position.y != 2.5f)
-                            {
-                                a.leftwall.transform.position += new Vector3(0, 5, 0);
-                            }
-
-                            if (a.rightwall.transform.position.y != 2.5f)
-                            {
-                                a.rightwall.transform.position += new Vector3(0, 5, 0);
-                            }
-                        }
-                    }
                 }
-                if (colid == "end")
-                {
-                    Debug.Log("This should switch");
-                    SceneManager.LoadScene("Ending_Screen");
-                }
+            }
+            if (danger)
+            {
+                this.GetComponent<resetwalls>().enabled = true;
+                this.GetComponent<resetwalls>().Start();
+                narr = new string[0];
                 danger = false;
-                for (int i = 0; i < narr.Length; i++)
-                {
-                    if (narr[i] == colid)
-                    {
-                        danger = true;
-                        collided_object = arr[i];
-                        break;
+                aswitch = false;
+            }
+            findbad = false;
+        }
+    }
 
-                    }
-                }
-                if (danger)
-                {
-                    //Debug.Log("danger should have worked");
-                    this.GetComponent<resetwalls>().enabled = true;
-                    this.GetComponent<resetwalls>().Start();
-                    narr = new string[0];
-                    /*
-                    GameObject startsec = collided_object;
-                    GameObject endsec = main.GetComponent<makepath>().end_section;
-                    Stack<GameObject>[] astack = main.GetComponent<makepath>().pathAlgorithm(startsec, endsec);
+    public static void closepath(GameObject[] p)
+    {
+        int c = p.Length;
+        for (int i = 0; i < c; i++)
+        {
+            GameObject s = p[i];
+            attributes a = s.GetComponent<attributes>();
+            a.onGood = false;
+            if (a.topwall.transform.position.y != 2.5f)
+            {
+                a.topwall.transform.position += new Vector3(0, 5, 0);
+            }
 
-                    Stack<GameObject> gp = astack[0];
-                    Stack<GameObject> ss = astack[1];
+            if (a.bottomwall.transform.position.y != 2.5f)
+            {
+                a.bottomwall.transform.position += new Vector3(0, 5, 0);
+            }
 
-                    int ssc = ss.Count;
-                    GameObject[] sa = new GameObject[ssc];
-                    string[] nsa = new string[ssc];
-                    GameObject ssec;
-                    for (int a = 0; a < ssc; a++)
-                    {
-                        ssec = ss.Pop();
-                        sa[a] = ssec;
-                        nsa[a] = ssec.name;
-                    }
+            if (a.leftwall.transform.position.y != 2.5f)
+            {
+                a.leftwall.transform.position += new Vector3(0, 5, 0);
+            }
 
-                    int c = gp.Count;
-                    GameObject[] ret_path = new GameObject[c];
-                    string[] name_path = new string[c];
-                    for (int a = 0; a < c; a++)
-                    {
-                        GameObject s = gp.Pop();
-                        ret_path[a] = s;
-                        name_path[a] = s.name;
-                    }
-
-                    main.GetComponent<makepath>().sa = sa;
-                    main.GetComponent<makepath>().nsa = nsa;
-                    main.GetComponent<makepath>().ret_path = ret_path;
-                    main.GetComponent<makepath>().name_path = name_path;
-                    */
-                    danger = false;
-                    aswitch = false;
-                }
+            if (a.rightwall.transform.position.y != 2.5f)
+            {
+                a.rightwall.transform.position += new Vector3(0, 5, 0);
             }
         }
     }
+
 }
