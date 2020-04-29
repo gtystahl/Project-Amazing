@@ -204,7 +204,7 @@ public class AI_Controller : MonoBehaviour
                                 sawPlayer = false;
                             }
                             //old was /5 and * deltatime
-                            this.transform.position += (addition) * .025f * (Time.deltaTime * 10);
+                            this.transform.position += (addition) * Time.deltaTime * .75f;
                         }
                         else
                         {
@@ -225,7 +225,7 @@ public class AI_Controller : MonoBehaviour
                         pmovement.x = pr.transform.position.x - this.transform.position.x;
                         pmovement.z = pr.transform.position.z - this.transform.position.z;
 
-                        this.transform.position += (pmovement) * Time.deltaTime;
+                        this.transform.position += (pmovement) * Time.deltaTime * 2;
 
                     }
                 } else
