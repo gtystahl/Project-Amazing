@@ -59,18 +59,20 @@ public class trap : MonoBehaviour
             trapon = false;
         }
 
+        /*
         if (colid == "end")
         {
             Debug.Log("This should switch");
             SceneManager.LoadScene("Ending_Screen");
         }
+        */
 
         if (findbad)
         {
             danger = false;
-            for (int i = 0; i < narr.Length; i++)
+            for (int i = 0; i < arr.Length; i++)
             {
-                if (narr[i] == colid)
+                if (arr[i].name == colid)
                 {
                     danger = true;
                     collided_object = arr[i];
@@ -82,7 +84,7 @@ public class trap : MonoBehaviour
             {
                 this.GetComponent<resetwalls>().enabled = true;
                 this.GetComponent<resetwalls>().Start();
-                narr = new string[0];
+                //arr = new GameObject[0];
                 danger = false;
                 aswitch = false;
             }

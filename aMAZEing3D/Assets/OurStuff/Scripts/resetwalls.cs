@@ -81,10 +81,20 @@ public class resetwalls : MonoBehaviour
         //Put run mazecreater here
 
         Debug.Log("stop");
-        zzzdebugmakepath zmp = pf.GetComponent<zzzdebugmakepath>();
-        zmp.Start();
-        zmp.enabled = true;
-        zmp.square = this.GetComponent<trap>().collided_object;
+        //zzzdebugmakepath zmp = pf.GetComponent<zzzdebugmakepath>();
+        //zmp.Start();
+        //zmp.enabled = true;
+        //zmp.square = this.GetComponent<trap>().collided_object;
+
+        //Fix the remake maze
+        makepath mp = pf.GetComponent<makepath>();
+        Debug.Log("first : " + this.GetComponent<trap>().collided_object);
+        Debug.Log("second : " + mp.end_section);
+        Debug.Log("third : " + mp.arr);
+        Debug.Log("fourth : " + mp.player);
+        mp.astack = mp.pathAlgorithm(this.GetComponent<trap>().collided_object, mp.end_section, mp.arr, mp.player);
+        mp.setFun(mp.player);
+
         /*
         makepath m = pf.GetComponent<makepath>();
         Stack<GameObject>[] astack = m.pathAlgorithm(pr.GetComponent<trap>().collided_object, pf.GetComponent<makepath>().end_section, sections);
@@ -114,8 +124,8 @@ public class resetwalls : MonoBehaviour
             m.name_path[i] = s.name;
         }
         */
-        this.GetComponent<trap>().enabled = false;
-        this.GetComponent<trap>().Start();
+        //this.GetComponent<trap>().enabled = false;
+        //this.GetComponent<trap>().Start();
         this.GetComponent<resetwalls>().enabled = false;
 
 

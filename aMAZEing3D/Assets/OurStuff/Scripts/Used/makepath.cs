@@ -56,6 +56,9 @@ public class makepath : MonoBehaviour
 
     //This is the Ai creater object
     public GameObject ac;
+
+    //This is the player register whether it is the player or not
+    public GameObject player;
     // Start is called before the first frame update
     void Start()
     {
@@ -78,6 +81,9 @@ public class makepath : MonoBehaviour
         section = arr[start_num];
         start_section = section;
         section.GetComponent<attributes>().visited = true;
+
+        astack = pathAlgorithm(start_section, end_section, arr, player);
+        setFun(player);
 
         //about to do some funky things under here:
 
@@ -298,7 +304,7 @@ public class makepath : MonoBehaviour
         } */
     }
 
-    public void setFun()
+    public void setFun(GameObject pr)
     {
         good_path = this.astack[0];
         ss = this.astack[1];
@@ -324,11 +330,13 @@ public class makepath : MonoBehaviour
             ret_path[i] = s;
             name_path[i] = s.name;
         }
-
-        ac.GetComponent<AI_Creater>().enabled = true;
-        ac.GetComponent<AI_Creater>().updateGood();
+        this.ac.GetComponent<AI_Creater>().enabled = true;
+        this.ac.GetComponent<AI_Creater>().updateGood();
+        pr.GetComponent<trap>().Start();
+        pr.GetComponent<trap>().enabled = true;
+        pr.GetComponent<playersection>().first = true;
     }
-    public Stack<GameObject>[] pathAlgorithm(GameObject s, GameObject es, GameObject [] full)
+    public Stack<GameObject>[] pathAlgorithm(GameObject s, GameObject es, GameObject [] full, GameObject pr)
     {
         ArrayList secleft = new ArrayList(full.Length);
         for (int z = 0; z < full.Length; z++) {
@@ -340,18 +348,21 @@ public class makepath : MonoBehaviour
         Stack<Stack<GameObject>> path = new Stack<Stack<GameObject>>();
         bool first_change = false;
         Stack<GameObject> ss = new Stack<GameObject>();
-        GameObject[] section_array; //sa
-        string[] name_section_array; //nsa
+        //GameObject[] section_array; //sa
+        //string[] name_section_array; //nsa
         Stack<GameObject> section_walls;
-        GameObject[] rp; //ret_path
-        string[] np; //name_path
+        //GameObject[] rp; //ret_path
+        //string[] np; //name_path
+        bool allvisitedval;
 
 
         //here we go
-        int j = 1;
+        //int j = 1;
         bool running = true;
         while (running)
         {
+
+
             int possibles = square.GetComponent<attributes>().paths;
             int iter;
             if (gpd != true)
@@ -382,16 +393,19 @@ public class makepath : MonoBehaviour
                 //sudo stuff goes here
                 Stack<GameObject> sectlst;
                 GameObject w;
-                //path.Count != 0
-                if (secleft.Count != 0 || path.Count != 0)
+                //PathSize = path.Count;
+                allvisitedval = allvisited(full);
+                if (allvisited(full) != true || path.Count != 0)
                 {
                     if (first_change)
                     {
                         if (square.name != es.name)
-                        //square.GetComponent<Renderer>().enabled = false;
-                        //This is where we set the special spaces
-                        square.GetComponent<Renderer>().material = square.GetComponent<attributes>().bad;
-                        ss.Push(square);
+                        {
+                            //square.GetComponent<Renderer>().enabled = false;
+                            //This is where we set the special spaces
+                            square.GetComponent<Renderer>().material = square.GetComponent<attributes>().bad;
+                            ss.Push(square);
+                        }
                         //Debug.Log(square.name);
                         first_change = false;
                     }
@@ -426,6 +440,7 @@ public class makepath : MonoBehaviour
                 }
                 else
                 {
+                    Debug.Log("Stops the loop");
                     running = false;
                     //Put this on the outside since we can't return multiple data types easily
                     /*
@@ -447,7 +462,7 @@ public class makepath : MonoBehaviour
             {
                 first_change = true;
                 iter = Random.Range(0, possibles);
-                
+
 
                 section_walls = new Stack<GameObject>();
                 GameObject old_section = square;
@@ -549,14 +564,259 @@ public class makepath : MonoBehaviour
                     section_walls.Push(old_section);
                     path.Push(section_walls);
                 }
+
+                /*
+                printable = "secleft: [";
+                Debug.Log(secleft.Count);
+                for (int i = 0; i < secleft.Count; i++)
+                {
+                    flippysticks = "";
+                    flippysticks += secleft[i];
+                    printable += flippysticks.Split(' ')[0];
+                    if (i + 1 < secleft.Count)
+                    {
+                        printable += " ,";
+                    }
+                }
+                Debug.Log(printable + "]");
+                */
             }
         }
-
         Debug.Log("The pathmaker ran");
         //TODO PLEASE FOR THE LOVE OF GOD CHANGE THIS BEFORE BACKMAN SEES!!!!!!!
         Stack<GameObject>[] fuckyouunity = new Stack<GameObject>[2];
         fuckyouunity[0] = correct_path;
         fuckyouunity[1] = ss;
         return fuckyouunity;
+        //this.GetComponent<makepath>().astack = fuckyouunity;
+        //this.GetComponent<makepath>().setFun();
+        //pr.GetComponent<trap>().Start();
+        //pr.GetComponent<trap>().enabled = true;
+        //pr.GetComponent<playersection>().first = true;
+        //this.GetComponent<zzzdebugmakepath>().enabled = false;
+                //ac.GetComponent<AI_Creater>().enabled = true;
+
+
+
+            /*
+            int possibles = square.GetComponent<attributes>().paths;
+            int iter;
+            if (gpd != true)
+            {
+                if (correct_path.Contains(square) != true)
+                {
+                    correct_path.Push(square);
+                    //name_path[correct_path.Count] = square.name;
+                    //Debug.Log(name_path.Length);
+                    //Debug.Log("Add square: " + square.name);
+                    //Debug.Log("good path size: " + correct_path.Count);
+                    //square.GetComponent<Renderer>().enabled = false;
+                    //square.transform.position += new Vector3(0, 10, 0);
+                }
+            }
+
+            if (possibles == 0)
+            {
+                if (gpd != true)
+                {
+                    correct_path.Pop();
+                    //name_path[correct_path.Count] = "-1";
+                    //Debug.Log("Remove square: " + s.name);
+                    //Debug.Log("good path size: " + correct_path.Count);
+                    //square.GetComponent<Renderer>().enabled = true;
+                    //square.transform.position += new Vector3(0, -10, 0);
+                }
+                //sudo stuff goes here
+                Stack<GameObject> sectlst;
+                GameObject w;
+                //path.Count != 0
+                if (secleft.Count != 0 || path.Count != 0)
+                {
+                    if (first_change)
+                    {
+                        if (square.name != es.name)
+                        //square.GetComponent<Renderer>().enabled = false;
+                        //This is where we set the special spaces
+                        square.GetComponent<Renderer>().material = square.GetComponent<attributes>().bad;
+                        ss.Push(square);
+                        //Debug.Log(square.name);
+                        first_change = false;
+                    }
+                    sectlst = path.Pop();
+                    square = sectlst.Pop();
+                    square.GetComponent<attributes>().visited = true;
+                    for (int i = 0; i < sectlst.Count; i++)
+                    {
+                        w = sectlst.Pop();
+                        GameObject[] nexts = w.GetComponent<wall_attributes>().connections;
+                        for (int k = 0; k < nexts.Length; k++)
+                        {
+                            if (nexts[k].GetComponent<attributes>().sectionNumber != square.GetComponent<attributes>().sectionNumber)
+                            {
+                                if (nexts[k].GetComponent<attributes>().visited != true)
+                                {
+                                    nexts[k].GetComponent<attributes>().paths += 1;
+                                    w.GetComponent<wall_attributes>().movable = true;
+                                    if (k == 0)
+                                    {
+                                        nexts[k + 1].GetComponent<attributes>().paths += 1;
+                                    }
+                                    else
+                                    {
+                                        nexts[k - 1].GetComponent<attributes>().paths += 1;
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                }
+                else
+                {
+                    running = false;
+                    //Put this on the outside since we can't return multiple data types easily
+                    /*
+                    int ssc = ss.Count;
+                    //Debug.Log(ss.Count);
+                    section_array= new GameObject[ssc];
+                    name_section_array = new string[ssc];
+                    GameObject ssec;
+                    for (int i = 0; i < ssc; i++)
+                    {
+                        ssec = ss.Pop();
+                        section_array[i] = ssec;
+                        name_section_array[i] = ssec.name;
+                    }
+                    
+                }
+            }
+            else
+            {
+                first_change = true;
+                iter = Random.Range(0, possibles);
+                
+
+                section_walls = new Stack<GameObject>();
+                GameObject old_section = square;
+                if (secleft.Contains(old_section))
+                {
+                    secleft.Remove(old_section);
+                }
+
+                for (int a = 0; a < 4; a++)
+                {
+                    GameObject wall;
+                    if (a == 0)
+                    {
+                        wall = old_section.GetComponent<attributes>().topwall;
+                    }
+                    else if (a == 1)
+                    {
+                        wall = old_section.GetComponent<attributes>().rightwall;
+                    }
+                    else if (a == 2)
+                    {
+                        wall = old_section.GetComponent<attributes>().bottomwall;
+                    }
+                    else
+                    {
+                        wall = old_section.GetComponent<attributes>().leftwall;
+                    }
+
+                    if (wall.GetComponent<wall_attributes>().movable)
+                    {
+
+                        if (iter == 0)
+                        {
+
+                            wall.transform.position += new Vector3(0, -(wall.transform.localScale.y), 0);
+                            wall.GetComponent<wall_attributes>().movable = false;
+
+                            GameObject[] nexts = wall.GetComponent<wall_attributes>().connections;
+                            for (int i = 0; i < nexts.Length; i++)
+                            {
+                                nexts[i].GetComponent<attributes>().paths -= 1;
+                                if (nexts[i].GetComponent<attributes>().sectionNumber != old_section.GetComponent<attributes>().sectionNumber)
+                                {
+                                    square = nexts[i];
+                                    square.GetComponent<attributes>().visited = true;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            wall.GetComponent<wall_attributes>().movable = false;
+                            GameObject[] nexts = wall.GetComponent<wall_attributes>().connections;
+                            for (int k = 0; k < nexts.Length; k++)
+                            {
+                                nexts[k].GetComponent<attributes>().paths -= 1;
+                            }
+
+                            section_walls.Push(wall);
+                        }
+                    }
+                    else
+                    {
+                        iter++;
+                    }
+
+                    iter--;
+                }
+
+                if (square.name == es.name)
+                {
+                    // Lets the Algorithm know this is a bad path and time to start moving backwards
+                    GameObject wall = square.GetComponent<attributes>().topwall;
+                    wall.transform.position += new Vector3(0, -(wall.transform.localScale.y), 0);
+                    //Could possibly be broken and need ot be changed
+                    GameObject e = Instantiate(square, new Vector3(square.transform.position.x, square.transform.position.y, square.transform.position.z + (square.transform.localScale.z) + wall.transform.localScale.x), Quaternion.identity);
+                    e.name = "end";
+                    correct_path.Push(square);
+                    gpd = true;
+
+                    //This needs to be moved to the outside
+                    /*
+                    int c = correct_path.Count;
+                    rp = new GameObject[c];
+                    np = new string[c];
+                    for (int i = 0; i < c; i++)
+                    {
+                        GameObject sect = correct_path.Pop();
+                        rp[i] = sect;
+                        np[i] = sect.name;
+
+                        //Debug.Log(s.name);
+                        //Debug.Log(i);
+                        //s.GetComponent<Renderer>().enabled = false;
+                    }
+                    
+                }
+                else
+                {
+                    section_walls.Push(old_section);
+                    path.Push(section_walls);
+                }
+                */
+        
+        /*
+        Debug.Log("The pathmaker ran");
+        //TODO PLEASE FOR THE LOVE OF GOD CHANGE THIS BEFORE BACKMAN SEES!!!!!!!
+        Stack<GameObject>[] fuckyouunity = new Stack<GameObject>[2];
+        fuckyouunity[0] = correct_path;
+        fuckyouunity[1] = ss;
+        return fuckyouunity;
+        */
+    }
+
+    public bool allvisited(GameObject[] f)
+    {
+        for (int iter = 0; iter < f.Length; iter++)
+        {
+            if (f[iter].GetComponent<attributes>().visited != true)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }

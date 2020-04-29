@@ -295,7 +295,7 @@ public class zzzdebugmakepath : MonoBehaviour
             fuckyouunity[0] = correct_path;
             fuckyouunity[1] = ss;
             this.GetComponent<makepath>().astack = fuckyouunity;
-            this.GetComponent<makepath>().setFun();
+            this.GetComponent<makepath>().setFun(pr);
             pr.GetComponent<trap>().Start();
             pr.GetComponent<trap>().enabled = true; 
             pr.GetComponent<playersection>().first = true;

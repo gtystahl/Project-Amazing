@@ -22,7 +22,7 @@ public class playersection : MonoBehaviour
     // Update is called once per frame
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("entering section");
+        //Debug.Log("entering section");
         if (collision.gameObject.tag == "section")
         {
             col = collision.collider.name;
@@ -44,7 +44,7 @@ public class playersection : MonoBehaviour
 
     private void OnCollisionExit(Collision collision)
     {
-        Debug.Log("Leaving section");
+        //Debug.Log("Leaving section");
         if (collision.collider.tag == "section")
         {
             if (notgood)

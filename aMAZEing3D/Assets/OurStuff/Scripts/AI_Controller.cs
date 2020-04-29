@@ -204,7 +204,7 @@ public class AI_Controller : MonoBehaviour
                                 sawPlayer = false;
                             }
                             //old was /5 and * deltatime
-                            this.transform.position += (addition) * .025f; //* (Time.deltaTime * 10);
+                            this.transform.position += (addition) * .025f * (Time.deltaTime * 10);
                         }
                         else
                         {
@@ -244,11 +244,11 @@ public class AI_Controller : MonoBehaviour
             if (Mathf.Abs(t.transform.position.z - c.transform.position.z) < .1f)
             {
                 return true;
-                /**/
+                /*
                 Vector3 correction = currentsec.transform.position;
                 correction.y = 3;
                 this.transform.position = correction;
-                /**/
+                */
             }
         }
         return false;
@@ -308,32 +308,35 @@ public class AI_Controller : MonoBehaviour
         if (secat.topwall.transform.position.y < 0)
         {
             cons = secat.topwall.GetComponent<wall_attributes>().connections;
-            for (int i = 0; i < cons.Length; i++)
+            if (cons[0] != null)
             {
-                if (s != cons[i])
+                for (int i = 0; i < cons.Length; i++)
                 {
-                    nsec = cons[i];
-                }
-            }
-            if (nsec != p)
-            {
-                change = false;
-                retpath = recurspath(nsec, path, s, og);
-                //This could be redundant because if they are the same lenght then there should not have been any changes
-                if (retpath.Count != origcount)
-                {
-                    change = true;
-                }
-
-                if (change)
-                {
-                    if (og == nsec)
+                    if (s != cons[i])
                     {
-                        return path;
+                        nsec = cons[i];
                     }
-                    path = retpath;
-                    path.Add(nsec);
-                    origcount = path.Count;
+                }
+                if (nsec != p)
+                {
+                    change = false;
+                    retpath = recurspath(nsec, path, s, og);
+                    //This could be redundant because if they are the same lenght then there should not have been any changes
+                    if (retpath.Count != origcount)
+                    {
+                        change = true;
+                    }
+
+                    if (change)
+                    {
+                        if (og == nsec)
+                        {
+                            return path;
+                        }
+                        path = retpath;
+                        path.Add(nsec);
+                        origcount = path.Count;
+                    }
                 }
             }
         }
