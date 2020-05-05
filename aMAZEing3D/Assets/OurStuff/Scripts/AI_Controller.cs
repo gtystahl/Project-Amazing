@@ -56,15 +56,16 @@ public class AI_Controller : MonoBehaviour
     // Update is called once per frame
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("COLLISION!");
-        Debug.Log(collision.gameObject.name);
+        //Debug.Log("COLLISION!");
+        //Debug.Log(collision.gameObject.name);
 
+        
         if (collision.gameObject.name == "SwordV5")
         {
-            Debug.Log(Input.GetKey(KeyCode.Space));
+            //Debug.Log(Input.GetKey(KeyCode.Space));
             if(Input.GetKey(KeyCode.Space) == true)
             {
-                Debug.Log("Should destroy");
+                //Debug.Log("Should destroy");
                 ac.GetComponent<AI_Creater>().ailist.Remove(this.gameObject);
                 ac.GetComponent<AI_Creater>().spawnmoreplayer = true;
                 Destroy(this.gameObject);
@@ -75,7 +76,7 @@ public class AI_Controller : MonoBehaviour
                 ac.GetComponent<AI_Creater>().ailist.Remove(this.gameObject);
                 ac.GetComponent<AI_Creater>().spawnmoreplayer = true;
                 Destroy(this.gameObject);
-                Debug.Log(ac.GetComponent<AI_Creater>().Health);
+                //Debug.Log(ac.GetComponent<AI_Creater>().Health);
 
                 if(ac.GetComponent<AI_Creater>().Health == 0)
                 {
@@ -84,21 +85,21 @@ public class AI_Controller : MonoBehaviour
             }
 
         }
-
+        
         if (collision.gameObject.name == "Player")
         {
             ac.GetComponent<AI_Creater>().Health -= 1;
             ac.GetComponent<AI_Creater>().ailist.Remove(this.gameObject);
             ac.GetComponent<AI_Creater>().spawnmoreplayer = true;
             Destroy(this.gameObject);
-            Debug.Log(ac.GetComponent<AI_Creater>().Health);
+            //Debug.Log(ac.GetComponent<AI_Creater>().Health);
 
             if(ac.GetComponent<AI_Creater>().Health == 0)
             {
                 SceneManager.LoadScene("Death_screen");
             }
         }
-
+        
         if (currentsec.name != collision.collider.name)
         {
             for (int i = 0; i < fp.Length; i++)
@@ -208,7 +209,27 @@ public class AI_Controller : MonoBehaviour
                                 sawPlayer = false;
                             }
                             //old was /5 and * deltatime
-                            this.transform.position += (addition) * Time.deltaTime * .75f;
+                            Vector3 changerot = this.transform.rotation.eulerAngles;
+                            float angle = 0;
+                            if (addition.z > 1)
+                            {
+                                angle = 90;
+                            } 
+                            else if (addition.z < 0)
+                            {
+                                angle = 270;
+                            }
+                            else if (addition.x > 1) 
+                            {
+                                angle = 180;
+                            } else
+                            {
+                                angle = 0;
+                            }
+                            changerot.y = angle;
+                            this.transform.position += (addition) * Time.deltaTime * .6f;
+                            this.transform.eulerAngles = changerot;
+
                         }
                         else
                         {
@@ -228,7 +249,39 @@ public class AI_Controller : MonoBehaviour
                         Vector3 pmovement = new Vector3(0, 0, 0);
                         pmovement.x = pr.transform.position.x - this.transform.position.x;
                         pmovement.z = pr.transform.position.z - this.transform.position.z;
-
+                        
+                        //this.transform.position += (pmovement) * Time.deltaTime * 2; Vector3 changerot = this.transform.rotation.eulerAngles;
+                        Vector3 changerot = this.transform.rotation.eulerAngles;
+                        float angle = changerot.y;
+                        if (pmovement.z >= 0 && pmovement.x >= 0)
+                        {
+                            //Debug.Log(Mathf.Abs(pmovement.x) * (Mathf.PI / 180));
+                            //Debug.Log((Mathf.Asin(Mathf.Abs(pmovement.x) * (Mathf.PI / 180))));
+                            //angle = (Mathf.Asin(Mathf.Abs(pmovement.x) * (Mathf.PI / 180))) + 90;
+                            angle = (Mathf.Atan(Mathf.Abs(pmovement.x) / Mathf.Abs(pmovement.z)) * (180 / Mathf.PI)) + 90;
+                        }
+                        else if (pmovement.z < 0 && pmovement.x < 0)
+                        {
+                            //Debug.Log(Mathf.Abs(pmovement.x) * (Mathf.PI / 180));
+                            //Debug.Log((Mathf.Asin(Mathf.Abs(pmovement.x) * (Mathf.PI / 180))));
+                            angle = (Mathf.Atan(Mathf.Abs(pmovement.x) / Mathf.Abs(pmovement.z)) * (180 / Mathf.PI)) + 270;
+                        }
+                        else if (pmovement.z < 0)
+                        {
+                            //Debug.Log(Mathf.Abs(pmovement.x) * (Mathf.PI / 180));
+                            //Debug.Log((Mathf.Asin(Mathf.Abs(pmovement.x) * (Mathf.PI / 180))));
+                            angle = (Mathf.Atan(Mathf.Abs(pmovement.z) / Mathf.Abs(pmovement.x)) * (180 / Mathf.PI)) + 180;
+                        }
+                        else
+                        {
+                            //Debug.Log(Mathf.Abs(pmovement.x) * (Mathf.PI / 180));
+                            //Debug.Log((Mathf.Asin(Mathf.Abs(pmovement.x) * (Mathf.PI / 180))));
+                            angle = (Mathf.Atan(Mathf.Abs(pmovement.z) / Mathf.Abs(pmovement.x)) * (180 / Mathf.PI));
+                        }
+                        changerot.y = angle;
+                        this.transform.eulerAngles = changerot;
+                        //Debug.Log((pmovement) * Time.deltaTime * (1f / 2f));
+                        //Debug.Log(angle);
                         this.transform.position += (pmovement) * Time.deltaTime * 2;
 
                     }

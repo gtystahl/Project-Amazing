@@ -64,8 +64,43 @@ public class movePlayer : MonoBehaviour
             force.z = z;
             this.transform.position += force;
             //Debug.Log("Key is being pressed");
-        } else if (Input.GetKeyUp(KeyCode.UpArrow))
+        } else if (Input.GetKey(KeyCode.DownArrow))
         {
+            z = 0;
+            x = 0;
+            float conversion = (Mathf.PI / 180f);
+            if (angle <= 270 && angle >= 90)
+            {
+                if (angle < 180)
+                {
+                    angle -= 90;
+                    z = Mathf.Sin(conversion * angle) * newspeed;
+                    x = -Mathf.Sin(conversion * (90 - angle)) * newspeed;
+                }
+                else
+                {
+                    angle -= 180;
+                    x = Mathf.Sin(conversion * angle) * newspeed;
+                    z = Mathf.Sin(conversion * (90 - angle)) * newspeed;
+                }
+            }
+            else
+            {
+                if (angle > 90)
+                {
+                    angle = angle - 270;
+                    z = -Mathf.Sin(conversion * angle) * newspeed;
+                    x = Mathf.Sin(conversion * (90 - angle)) * newspeed;
+                }
+                else
+                {
+                    x = -Mathf.Sin(conversion * angle) * newspeed;
+                    z = -Mathf.Sin(conversion * (90 - angle)) * newspeed;
+                }
+            }
+            force.x = x;
+            force.z = z;
+            this.transform.position += force;
             //Debug.Log("Key is lifted");
             //rb.velocity = new Vector3(0, 0, 0);
         }
