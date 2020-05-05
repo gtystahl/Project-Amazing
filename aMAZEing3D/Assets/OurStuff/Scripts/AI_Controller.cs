@@ -38,6 +38,8 @@ public class AI_Controller : MonoBehaviour
 
     public int Health;
 
+
+
     // Start is called before the first frame update
     public void Start()
     {
@@ -54,7 +56,9 @@ public class AI_Controller : MonoBehaviour
     // Update is called once per frame
     void OnCollisionEnter(Collision collision)
     {
-        //Debug.Log(collision.gameObject.name);
+        Debug.Log("COLLISION!");
+        Debug.Log(collision.gameObject.name);
+
         if (collision.gameObject.name == "SwordV5")
         {
             Debug.Log(Input.GetKey(KeyCode.Space));
@@ -73,7 +77,6 @@ public class AI_Controller : MonoBehaviour
                 Destroy(this.gameObject);
                 Debug.Log(ac.GetComponent<AI_Creater>().Health);
 
-                
                 if(ac.GetComponent<AI_Creater>().Health == 0)
                 {
                 SceneManager.LoadScene("Death_screen");
@@ -89,6 +92,7 @@ public class AI_Controller : MonoBehaviour
             ac.GetComponent<AI_Creater>().spawnmoreplayer = true;
             Destroy(this.gameObject);
             Debug.Log(ac.GetComponent<AI_Creater>().Health);
+
             if(ac.GetComponent<AI_Creater>().Health == 0)
             {
                 SceneManager.LoadScene("Death_screen");
