@@ -98,15 +98,68 @@ public class AI_Creater : MonoBehaviour
         }
         for (int i = 0; i < amount; i++)
         {
+            //Used to be veryfirst now is every first
             if (veryfirst)
             {
-                makepath mp = pf.GetComponent<makepath>();
-                cs = mp.end_section;
+                if (goodarr.Length < 25)
+                {
+                    makepath mp = pf.GetComponent<makepath>();
+                    cs = mp.end_section;
+                } else
+                {
+                    cs = goodarr[goodarr.Length - 25];
+                }
+                //veryfirst = false;
             } else
             {
-                sectionNumber = Random.Range(0, fullarr.Length);
-                Debug.Log(sectionNumber);
-                cs = fullarr[sectionNumber];
+                if (i != 0)
+                {
+                    int comp;
+                    sectionNumber = Random.Range(0, fullarr.Length);
+                    comp = int.Parse(pr.GetComponent<playersection>().col);
+                    while (comp == sectionNumber)
+                    {
+                        sectionNumber = Random.Range(0, fullarr.Length);
+                    }
+                    //Debug.Log(sectionNumber);
+                    cs = fullarr[sectionNumber];
+                } else
+                {
+                    string comp = pr.GetComponent<playersection>().col;
+                    bool notfound = true;
+                    int b = 25;
+                    for(int z = goodarr.Length - 1; z >= 0; z--)
+                    {
+                        if (goodarr[z].name == comp && notfound)
+                        {
+                            notfound = false;
+                        }
+                        else if (notfound == false)
+                        {
+                            if (z != 0 && b == 0)
+                            {
+                                cs = goodarr[z];
+                                b--;
+                            }
+                            else if (z == 0 && b > 0)
+                            {
+                                int comp2;
+                                sectionNumber = Random.Range(0, fullarr.Length);
+                                comp2 = int.Parse(pr.GetComponent<playersection>().col);
+                                while (comp2 == sectionNumber)
+                                {
+                                    sectionNumber = Random.Range(0, fullarr.Length);
+                                }
+                                //Debug.Log(sectionNumber);
+                                cs = fullarr[sectionNumber];
+                            }
+                            else
+                            {
+                                b--;
+                            }
+                        }
+                    }
+                }
             }
             spawnedai = Instantiate(ai);
             aicount++;

@@ -102,11 +102,14 @@ public class AI_Controller : MonoBehaviour
         
         if (currentsec.name != collision.collider.name)
         {
-            for (int i = 0; i < fp.Length; i++)
+            if (collision.collider.tag != "wall")
             {
-                if (fp[i].name == collision.collider.name)
+                for (int i = 0; i < fp.Length; i++)
                 {
-                    currentsec = fp[i];
+                    if (fp[i].name == collision.collider.name)
+                    {
+                        currentsec = fp[i];
+                    }
                 }
             }
         }
@@ -116,10 +119,10 @@ public class AI_Controller : MonoBehaviour
             Destroy(this.gameObject);
             ac.GetComponent<AI_Creater>().spawnmoreai = true;
         } 
-        if (collision.collider.transform.position.y > 0) {
-                //Debug.Log("It hits a wall in the up position");
-                Vector3 seccenter = currentsec.transform.position;
-                pathtofollow = new List<GameObject>();
+        if (collision.collider.transform.position.y > 0 && collision.collider.tag == "wall") {
+            //Debug.Log("It hits a wall in the up position");
+            Vector3 seccenter = currentsec.transform.position;
+            pathtofollow = new List<GameObject>();
             startsec = currentsec;
             setLoc();
         }
@@ -179,8 +182,8 @@ public class AI_Controller : MonoBehaviour
                         targetloc = nextsec.transform.position;
                         //need to add in the offset for raising the ai up. (done)
                         //targetloc.y = 0;
-                        addition.x = targetloc.x - currentsec.transform.position.x;
-                        addition.z = targetloc.z - currentsec.transform.position.z;
+                        addition.x = targetloc.x - this.transform.position.x;
+                        addition.z = targetloc.z - this.transform.position.z;
                         //addition.y = .1f;
                         GameObject rm = pathtofollow[pathtofollow.Count - 1];
                         pathtofollow.Remove(rm);
@@ -211,15 +214,15 @@ public class AI_Controller : MonoBehaviour
                             //old was /5 and * deltatime
                             Vector3 changerot = this.transform.rotation.eulerAngles;
                             float angle = 0;
-                            if (addition.z > 1)
+                            if (addition.z > 2.5)
                             {
                                 angle = 90;
                             } 
-                            else if (addition.z < 0)
+                            else if (addition.z < -2.5)
                             {
                                 angle = 270;
                             }
-                            else if (addition.x > 1) 
+                            else if (addition.x > 2.5) 
                             {
                                 angle = 180;
                             } else
@@ -227,7 +230,7 @@ public class AI_Controller : MonoBehaviour
                                 angle = 0;
                             }
                             changerot.y = angle;
-                            this.transform.position += (addition) * Time.deltaTime * .6f;
+                            this.transform.position += (addition) * Time.deltaTime;
                             this.transform.eulerAngles = changerot;
 
                         }
@@ -237,7 +240,9 @@ public class AI_Controller : MonoBehaviour
                             targetloc = nextsec.transform.position;
                             //need to add in the offset for raising the ai up. (done)
                             //targetloc.y = 0;
-                            addition = targetloc - currentsec.transform.position;
+                            //startsec = currentsec;
+                            //setLoc();
+                            addition = targetloc - this.transform.position;
                             //addition.y = .1f;
                             GameObject rm = pathtofollow[pathtofollow.Count - 1];
                             pathtofollow.Remove(rm);
@@ -296,18 +301,22 @@ public class AI_Controller : MonoBehaviour
 
     public bool close(GameObject c, GameObject t)
     {
-        if (Mathf.Abs(t.transform.position.x - c.transform.position.x) < .1f)
+        bool xgood = false;
+        bool zgood = false;
+        if (Mathf.Abs(t.transform.position.x - c.transform.position.x) < .5f)
         {
-            if (Mathf.Abs(t.transform.position.z - c.transform.position.z) < .1f)
-            {
-                return true;
-                /*
-                Vector3 correction = currentsec.transform.position;
-                correction.y = 3;
-                this.transform.position = correction;
-                */
-            }
+            xgood = true;
         }
+        if (Mathf.Abs(t.transform.position.z - c.transform.position.z) < .5f)
+        {
+            zgood = true;
+        }
+
+        if (xgood && zgood)
+        {
+            return true;
+        }
+
         return false;
     }
     public List<GameObject> findPath()
