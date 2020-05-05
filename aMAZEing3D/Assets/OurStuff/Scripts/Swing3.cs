@@ -7,6 +7,7 @@ public class Swing3 : MonoBehaviour
     public float speed;
     public Vector3 v;
     public Vector3 v2;
+    public AudioSource aud;
 
     public GameObject player;
     // Start is called before the first frame update
@@ -23,12 +24,13 @@ public class Swing3 : MonoBehaviour
             //Vector3.up and speed
             v2.y = player.transform.eulerAngles.y;
             this.transform.eulerAngles = v2;
-         }
+            aud.Play();
+        }
          else if (Input.GetKeyUp(KeyCode.Space)) {
             //Vector3.up and speed
             v.y = player.transform.eulerAngles.y;
             this.transform.eulerAngles = v;
-
+            //aud.Play();
         }
         
 
