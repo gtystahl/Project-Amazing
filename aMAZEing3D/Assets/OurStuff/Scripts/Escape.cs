@@ -6,6 +6,9 @@ public class Escape : MonoBehaviour
 {
     public GameObject ac;
     public List<GameObject> al;
+    public GameObject gameCam;
+    public GameObject pauseCam;
+    public GameObject miniCam;
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -15,10 +18,13 @@ public class Escape : MonoBehaviour
             {
                 al[i].GetComponent<AI_Controller>().enabled = false;
             }
+            gameCam.SetActive(false);
+            pauseCam.SetActive(true);
+            miniCam.SetActive(false);
             //This is where we need to switch the camera
         }
 
-        /*
+/*
         if (Input.GetKeyUp(KeyCode.Escape))
         {
             al = ac.GetComponent<AI_Creater>().ailist;
@@ -26,8 +32,11 @@ public class Escape : MonoBehaviour
             {
                 al[i].GetComponent<AI_Controller>().enabled = true;
             }
+            gameCam.SetActive(true);
+            pauseCam.SetActive(false);
+            miniCam.SetActive(true);
         }
-        follow this for getting the AI to start again
         */
+
     }
 }
