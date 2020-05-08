@@ -42,7 +42,11 @@ The following packages were added:
   com.unity.modules.wind@1.0.0
   com.unity.modules.xr@1.0.0
 
+<<<<<<< HEAD
 === Fri May  8 00:29:34 2020
+=======
+=== Fri May  8 00:41:49 2020
+>>>>>>> small_changes_gt
 
 Packages were changed.
 Update Mode: updateDependencies

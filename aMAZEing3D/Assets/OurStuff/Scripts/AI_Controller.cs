@@ -5,6 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class AI_Controller : MonoBehaviour
 {
+    
+    //These are where the audio files go
+    /*
+    public AudioClip monster;
+    public AudioClip playernoise;
+    */
+    public AudioSource audsor;
+    
+
+    //This might fix a possible duplication bug
+    public bool hitonce = false;
+
     public int ainum;
     //I changed this to be the full path
     public GameObject[] gp;
@@ -66,12 +78,21 @@ public class AI_Controller : MonoBehaviour
             if(Input.GetKey(KeyCode.Space) == true)
             {
                 //Debug.Log("Should destroy");
+                
+                audsor.clip = ac.GetComponent<AI_Creater>().monster;
+                audsor.Play();
+                
                 ac.GetComponent<AI_Creater>().ailist.Remove(this.gameObject);
                 ac.GetComponent<AI_Creater>().spawnmoreplayer = true;
                 Destroy(this.gameObject);
             }
             else
             {
+                
+                audsor.clip = ac.GetComponent<AI_Creater>().playernoise;
+                audsor.Play();
+                
+                hitonce = true;
                 ac.GetComponent<AI_Creater>().Health -= 1;
                 ac.GetComponent<AI_Creater>().ailist.Remove(this.gameObject);
                 ac.GetComponent<AI_Creater>().spawnmoreplayer = true;
@@ -86,8 +107,12 @@ public class AI_Controller : MonoBehaviour
 
         }
         
-        if (collision.gameObject.name == "Player")
+        if (collision.gameObject.name == "Player" && hitonce == false)
         {
+            
+            audsor.clip = ac.GetComponent<AI_Creater>().playernoise;
+            audsor.Play();
+            
             ac.GetComponent<AI_Creater>().Health -= 1;
             ac.GetComponent<AI_Creater>().ailist.Remove(this.gameObject);
             ac.GetComponent<AI_Creater>().spawnmoreplayer = true;
