@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class AI_Creater : MonoBehaviour
 {
+    //This is the audio source on the spawner
+    public AudioSource aud;
+    public AudioClip monster;
+    public AudioClip playernoise;
     //This is the varaible that determines the starting section of the spawned AI
     public GameObject cs;
 
@@ -194,5 +198,6 @@ public class AI_Creater : MonoBehaviour
         ac.pr = pr;
         ac.Start();
         ac.ac = this.gameObject;
+        ac.audsor = this.aud;
     }
 }
