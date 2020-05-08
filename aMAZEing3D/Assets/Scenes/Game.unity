@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.49641287, b: 0.5748173, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1128,7 +1128,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!81 &916202547
 AudioListener:
   m_ObjectHideFlags: 0
@@ -2151,6 +2151,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5364003828421321470, guid: 32e9f550ea389f14fb42a42d89bea9e5,
+        type: 3}
+      propertyPath: m_Name
+      value: Pathfinder
+      objectReference: {fileID: 0}
     - target: {fileID: 5364003828421321443, guid: 32e9f550ea389f14fb42a42d89bea9e5,
         type: 3}
       propertyPath: m_Enabled
@@ -2251,11 +2256,6 @@ PrefabInstance:
       propertyPath: ac
       value: 
       objectReference: {fileID: 2026012851}
-    - target: {fileID: 5364003828421321470, guid: 32e9f550ea389f14fb42a42d89bea9e5,
-        type: 3}
-      propertyPath: m_Name
-      value: Pathfinder
-      objectReference: {fileID: 0}
     - target: {fileID: 5364003828421321471, guid: 32e9f550ea389f14fb42a42d89bea9e5,
         type: 3}
       propertyPath: mazemaker
@@ -2296,6 +2296,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 818150460596515077, guid: cfd824fbd9a416941806a4bd071c68ce,
+        type: 3}
+      propertyPath: m_Name
+      value: Player Icon
+      objectReference: {fileID: 0}
     - target: {fileID: 818150460596515072, guid: cfd824fbd9a416941806a4bd071c68ce,
         type: 3}
       propertyPath: m_CastShadows
@@ -2306,11 +2311,6 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 534669902}
-    - target: {fileID: 818150460596515077, guid: cfd824fbd9a416941806a4bd071c68ce,
-        type: 3}
-      propertyPath: m_Name
-      value: Player Icon
-      objectReference: {fileID: 0}
     - target: {fileID: 818150460596515078, guid: cfd824fbd9a416941806a4bd071c68ce,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2375,6 +2375,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2661458376317022365, guid: 3310277a06f0ae644bf31da126cef267,
+        type: 3}
+      propertyPath: m_Name
+      value: newSection
+      objectReference: {fileID: 0}
+    - target: {fileID: 2661458376317022365, guid: 3310277a06f0ae644bf31da126cef267,
+        type: 3}
+      propertyPath: m_TagString
+      value: section
+      objectReference: {fileID: 0}
     - target: {fileID: 2661458376317022352, guid: 3310277a06f0ae644bf31da126cef267,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2429,16 +2439,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2661458376317022365, guid: 3310277a06f0ae644bf31da126cef267,
-        type: 3}
-      propertyPath: m_Name
-      value: newSection
-      objectReference: {fileID: 0}
-    - target: {fileID: 2661458376317022365, guid: 3310277a06f0ae644bf31da126cef267,
-        type: 3}
-      propertyPath: m_TagString
-      value: section
       objectReference: {fileID: 0}
     - target: {fileID: 2661458376317022366, guid: 3310277a06f0ae644bf31da126cef267,
         type: 3}
@@ -2554,6 +2554,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6461861757988533823, guid: a9cd876a6255ce44e9e7169a7ab2459e,
+        type: 3}
+      propertyPath: m_Name
+      value: playerregister
+      objectReference: {fileID: 0}
+    - target: {fileID: 6461861757988533823, guid: a9cd876a6255ce44e9e7169a7ab2459e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6461861757988533808, guid: a9cd876a6255ce44e9e7169a7ab2459e,
         type: 3}
       propertyPath: mazemake
@@ -2634,15 +2644,5 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 534669902}
-    - target: {fileID: 6461861757988533823, guid: a9cd876a6255ce44e9e7169a7ab2459e,
-        type: 3}
-      propertyPath: m_Name
-      value: playerregister
-      objectReference: {fileID: 0}
-    - target: {fileID: 6461861757988533823, guid: a9cd876a6255ce44e9e7169a7ab2459e,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a9cd876a6255ce44e9e7169a7ab2459e, type: 3}
