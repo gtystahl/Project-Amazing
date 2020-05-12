@@ -8,6 +8,8 @@ public class timer : MonoBehaviour
     public Text timertext;
     public float t;
     public int T;
+
+    public bool stop = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +20,7 @@ public class timer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(stop != true){
         t += Time.deltaTime;
         //The T below is the one that needs to be displayed
         T = Mathf.RoundToInt(t);
@@ -26,5 +29,7 @@ public class timer : MonoBehaviour
         string seconds =(t%60).ToString("f2");
 
         timertext.text = minutes + ":" + seconds;
+        }
+        
     }
 }

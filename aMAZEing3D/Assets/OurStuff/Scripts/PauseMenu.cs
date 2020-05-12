@@ -10,8 +10,10 @@ public class PauseMenu : MonoBehaviour
     public GameObject gameCam;
     public GameObject pauseCam;
     public GameObject miniCam;
+    public GameObject timer;
     public void Resume ()
     {
+        timer.GetComponent<timer>().stop = false;
         al = ac.GetComponent<AI_Creater>().ailist;
         for (int i = 0; i < al.Count; i++)
         {
