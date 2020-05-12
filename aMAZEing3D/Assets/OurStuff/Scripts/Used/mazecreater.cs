@@ -35,6 +35,8 @@ public class mazecreater : MonoBehaviour
     // This is the array that has all of the sections in it
     public GameObject[] full_section_list;
 
+    //This is the static varaibles taken from the difficulties screen
+    public GameObject stat;
     // Start is called before the first frame update
     void Start()
     {
@@ -43,6 +45,9 @@ public class mazecreater : MonoBehaviour
         startx = -(boxx * mazex / 2) + boxx / 2;
         startz = -(boxz * mazez / 2) + boxz / 2;
         */
+
+        mazex = stat.GetComponent<mazedim>().displayx;
+        mazez = stat.GetComponent<mazedim>().displayz;
 
         startx = 0;
         startz = 0;
