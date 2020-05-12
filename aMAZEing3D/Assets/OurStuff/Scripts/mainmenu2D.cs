@@ -7,7 +7,7 @@ public class mainmenu2D : MonoBehaviour
 {
 public void PlayGame ()
 {
-    SceneManager.LoadScene("Game");
+    SceneManager.LoadScene("Difficulties");
 }
 
 public void QuitGame ()
