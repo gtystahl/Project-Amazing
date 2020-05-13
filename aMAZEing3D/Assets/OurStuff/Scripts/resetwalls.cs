@@ -17,11 +17,25 @@ public class resetwalls : MonoBehaviour
     {
         v = new Vector3(0, 5, 0);
         sections = mazemake.GetComponent<mazecreater>().full_section_list;
+
+        Stack<Light> llist2 = pf.GetComponent<makepath>().llist;
+        int j = llist2.Count;
+        for(int i = 0; i < j; i++)
+        {
+            Destroy(llist2.Pop());
+
+
+        }
+        pf.GetComponent<makepath>().llist = new Stack<Light>(); 
+
+
         for (int i = 0; i < sections.Length; i++)
         {
             GameObject s = sections[i];
             //Changes the bad spaces back to the good spaces
-            s.GetComponent<Renderer>().material = s.GetComponent<attributes>().good;
+            //s.GetComponent<Renderer>().material = s.GetComponent<attributes>().good;
+
+
             s.GetComponent<attributes>().paths = 4;
             s.GetComponent<attributes>().visited = false;
             if (s.GetComponent<attributes>().topwall.GetComponent<wall_attributes>().outside != true)

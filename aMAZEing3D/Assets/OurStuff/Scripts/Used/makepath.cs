@@ -59,9 +59,16 @@ public class makepath : MonoBehaviour
 
     //This is the player register whether it is the player or not
     public GameObject player;
+
+    //This is the halo of light
+    public Light Bad_Spaces;
+
+    public Stack<Light> llist;
+
     // Start is called before the first frame update
     void Start()
     {
+        llist = new Stack<Light>() ;
         //This gets the mazecreater script
         mazecreater com;
         com = mazemaker.GetComponent<mazecreater>();
@@ -403,7 +410,10 @@ public class makepath : MonoBehaviour
                         {
                             //square.GetComponent<Renderer>().enabled = false;
                             //This is where we set the special spaces
-                            square.GetComponent<Renderer>().material = square.GetComponent<attributes>().bad;
+                            //square.GetComponent<Renderer>().material = square.GetComponent<attributes>().bad;
+                            Light l = Instantiate(Bad_Spaces, square.transform.position - new Vector3(0,-2,0), Quaternion.Euler(90,0,0));
+                        
+                            llist.Push(l);
                             ss.Push(square);
                         }
                         //Debug.Log(square.name);
