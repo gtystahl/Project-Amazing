@@ -20,6 +20,7 @@ public class resetwalls : MonoBehaviour
         for (int i = 0; i < sections.Length; i++)
         {
             GameObject s = sections[i];
+            //Changes the bad spaces back to the good spaces
             s.GetComponent<Renderer>().material = s.GetComponent<attributes>().good;
             s.GetComponent<attributes>().paths = 4;
             s.GetComponent<attributes>().visited = false;
