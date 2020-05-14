@@ -29,6 +29,8 @@ public class zzzdebugmakepath : MonoBehaviour
     public GameObject ac;
 
     public bool running;
+
+    //public AudioSource aud;
     public void Start()
     {
         full = this.GetComponent<makepath>().arr;
@@ -290,6 +292,8 @@ public class zzzdebugmakepath : MonoBehaviour
         else
         {
             Debug.Log("The pathmaker ran");
+            //aud.Play();
+            pr.GetComponent<audiostuff>().startaudio();
             //TODO PLEASE FOR THE LOVE OF GOD CHANGE THIS BEFORE BACKMAN SEES!!!!!!!
             Stack<GameObject>[] fuckyouunity = new Stack<GameObject>[2];
             fuckyouunity[0] = correct_path;

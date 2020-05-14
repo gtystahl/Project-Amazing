@@ -65,6 +65,9 @@ public class makepath : MonoBehaviour
 
     public Stack<Light> llist;
 
+    //This is the audiostuff
+    public AudioSource aud;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -593,6 +596,7 @@ public class makepath : MonoBehaviour
             }
         }
         Debug.Log("The pathmaker ran");
+        aud.Play();
         //TODO PLEASE FOR THE LOVE OF GOD CHANGE THIS BEFORE BACKMAN SEES!!!!!!!
         Stack<GameObject>[] fuckyouunity = new Stack<GameObject>[2];
         fuckyouunity[0] = correct_path;

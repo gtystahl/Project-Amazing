@@ -3282,9 +3282,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2684954817469583271, guid: 865eefec3bd594009895c958113a7d52,
         type: 3}
+    - target: {fileID: 5364003828421321471, guid: 32e9f550ea389f14fb42a42d89bea9e5,
+        type: 3}
+      propertyPath: aud
+      value: 
+      objectReference: {fileID: 583091050535438061}
     m_RemovedComponents:
     - {fileID: 5364003828421321464, guid: 32e9f550ea389f14fb42a42d89bea9e5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 32e9f550ea389f14fb42a42d89bea9e5, type: 3}
+--- !u!82 &583091050535438061 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 8188921256706282772, guid: 32e9f550ea389f14fb42a42d89bea9e5,
+    type: 3}
+  m_PrefabInstance: {fileID: 583091050535438060}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &818150460652943380
 PrefabInstance:
   m_ObjectHideFlags: 0

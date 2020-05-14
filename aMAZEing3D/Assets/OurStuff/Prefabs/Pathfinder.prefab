@@ -67,6 +67,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -105,3 +106,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   section: {fileID: 0}
+  mazemaker: {fileID: 0}
+  cam: {fileID: 0}
+  start_section: {fileID: 0}
+  end_section: {fileID: 0}
+  wall: {fileID: 0}
+  first_change: 0
+  ret_path: []
+  name_path: []
+  gpd: 0
+  floor: {fileID: 0}
+  sa: []
+  nsa: []
+  arr: []
+  ac: {fileID: 0}
+  player: {fileID: 0}
+  Bad_Spaces: {fileID: 0}
