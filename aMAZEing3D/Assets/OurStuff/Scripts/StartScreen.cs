@@ -8,7 +8,7 @@ public class StartScreen : MonoBehaviour
     // Start is called before the first frame update
     public void PlayGame ()
 {
-    SceneManager.LoadScene("Difficulties");
+    SceneManager.LoadScene("Controls");
 }
 
 public void QuitGame ()
