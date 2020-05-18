@@ -1835,6 +1835,7 @@ MonoBehaviour:
   gameCam: {fileID: 534669902}
   pauseCam: {fileID: 1271128772}
   miniCam: {fileID: 1123154383}
+  timertext: {fileID: 223940424}
   timer: {fileID: 1531367194}
 --- !u!4 &1141032024
 Transform:
@@ -1887,6 +1888,7 @@ MonoBehaviour:
   pauseCam: {fileID: 1271128772}
   miniCam: {fileID: 1123154383}
   timer: {fileID: 1531367194}
+  timertext: {fileID: 223940424}
 --- !u!81 &1271128774
 AudioListener:
   m_ObjectHideFlags: 0
@@ -2765,7 +2767,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2026012852
 MonoBehaviour:
   m_ObjectHideFlags: 0

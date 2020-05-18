@@ -9,12 +9,15 @@ public class Escape : MonoBehaviour
     public GameObject gameCam;
     public GameObject pauseCam;
     public GameObject miniCam;
+
+    public RectTransform timertext;
     
     public GameObject timer;
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            timertext.position -= new Vector3(0, 400, 0);
             timer.GetComponent<timer>().stop = true;
             al = ac.GetComponent<AI_Creater>().ailist;
             for (int i = 0; i < al.Count; i++)

@@ -11,8 +11,11 @@ public class PauseMenu : MonoBehaviour
     public GameObject pauseCam;
     public GameObject miniCam;
     public GameObject timer;
+
+    public RectTransform timertext;
     public void Resume ()
     {
+        timertext.position += new Vector3(0, 400, 0);
         timer.GetComponent<timer>().stop = false;
         al = ac.GetComponent<AI_Creater>().ailist;
         for (int i = 0; i < al.Count; i++)
