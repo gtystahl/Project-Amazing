@@ -43,4 +43,9 @@ public class timer : MonoBehaviour
         }
         
     }
+
+    public void resettime()
+    {
+        t = 0;
+    }
 }

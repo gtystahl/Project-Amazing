@@ -5,10 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class mainmenu2D : MonoBehaviour
 {
-public void PlayGame ()
-{
-    SceneManager.LoadScene("Controls");
-}
+    public GameObject Timer;
+    public void PlayGame()
+    {
+        if (SceneManager.GetActiveScene().name != "Start Menu")
+        {
+            Timer.GetComponent<timer>().resettime();
+        }
+        SceneManager.LoadScene("Controls");
+    }
 
 public void QuitGame ()
 {
