@@ -41,10 +41,7 @@ public class mazecreater : MonoBehaviour
     void Start()
     {
         // Sets the start position of the box based on some math
-        /*
-        startx = -(boxx * mazex / 2) + boxx / 2;
-        startz = -(boxz * mazez / 2) + boxz / 2;
-        */
+
 
         mazex = stat.GetComponent<mazedim>().displayx;
         mazez = stat.GetComponent<mazedim>().displayz;

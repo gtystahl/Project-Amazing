@@ -110,35 +110,7 @@ public class resetwalls : MonoBehaviour
         mp.astack = mp.pathAlgorithm(this.GetComponent<trap>().collided_object, mp.end_section, mp.arr, mp.player);
         mp.setFun(mp.player);
 
-        /*
-        makepath m = pf.GetComponent<makepath>();
-        Stack<GameObject>[] astack = m.pathAlgorithm(pr.GetComponent<trap>().collided_object, pf.GetComponent<makepath>().end_section, sections);
-        //Stack<GameObject>[] astack = new Stack<GameObject>[2];
-
-        m.good_path = astack[0];
-        m.ss = astack[1];
-
-        int ssc = m.ss.Count;
-        m.sa = new GameObject[ssc];
-        m.nsa = new string[ssc];
-        GameObject ssec;
-        for (int i = 0; i < ssc; i++)
-        {
-            ssec = m.ss.Pop();
-            m.sa[i] = ssec;
-            m.nsa[i] = ssec.name;
-        }
-
-        int c = m.good_path.Count;
-        m.ret_path = new GameObject[c];
-        m.name_path = new string[c];
-        for (int i = 0; i < c; i++)
-        {
-            GameObject s = m.good_path.Pop();
-            m.ret_path[i] = s;
-            m.name_path[i] = s.name;
-        }
-        */
+       
         //this.GetComponent<trap>().enabled = false;
         //this.GetComponent<trap>().Start();
         this.GetComponent<resetwalls>().enabled = false;
